@@ -27,25 +27,6 @@ class MockObjRotate(Rotable):
         return self._angular_velocity
 
 
-class MockObjRotateWithoutSetter(Rotable):
-
-    def __init__(self, **kwargs):
-        for k, v in kwargs.items():
-            self.__setattr__(k, v)
-
-    @property
-    def direction(self) -> int:
-        return self._direction
-
-    @property
-    def directions_number(self) -> int:
-        return self._directions_number
-
-    @property
-    def angular_velocity(self) -> int:
-        return self._angular_velocity
-
-
 @pytest.mark.parametrize(
     "direction, directions_number, angular_velocity, result_direction",
     [
