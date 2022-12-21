@@ -1,8 +1,5 @@
 from space_invaders.engine import exceptions
-from space_invaders.engine.interfaces.command import Command
-from space_invaders.engine.interfaces.linear_velocity_controller import (
-    LinearVelocityController,
-)
+from space_invaders.engine.interfaces import Command, LinearVelocityController
 
 
 class ChangeLinearVelocity(Command):
