@@ -1,6 +1,7 @@
-import unittest
-from space_invaders.engine.interfaces.angular_velocity import AngularVelocityController
-from space_invaders.engine.commands.change_angular_velocity import ChangeAngularVelocity, NegativeAngularVelocityError
+import pytest
+from space_invaders.engine import exceptions
+from space_invaders.engine.interfaces import AngularVelocityController
+from space_invaders.engine.commands.change_angular_velocity import ChangeAngularVelocity
 
 
 class MockAngularVelocityController(AngularVelocityController):
@@ -21,23 +22,27 @@ class MockAngularVelocityController(AngularVelocityController):
         return self._correction
 
 
-class TestChangeAngularVelocity(unittest.TestCase):
-    def test_exec(self):
-        test_cases = [
+@pytest.mark.parametrize(
+    ("velocity", "correction", "expected_velocity"),
+    (
             (3, 5, 8),
             (0, 2, 2),
             (6, -2, 4)
-        ]
-        for velocity, correction, expected in test_cases:
-            obj = MockAngularVelocityController(velocity, correction)
-            ChangeAngularVelocity(obj).execute()
-            self.assertEqual(obj.angular_velocity, expected)
-
-    def test_neg_velocity(self):
-        with self.assertRaises(NegativeAngularVelocityError):
-            obj = MockAngularVelocityController(3, -5)
-            ChangeAngularVelocity(obj).execute()
+    ),
+)
+def test_change_linear_velocity(velocity, correction, expected_velocity):
+    obj = MockAngularVelocityController(velocity=velocity, correction=correction)
+    ChangeAngularVelocity(obj).execute()
+    assert obj.angular_velocity == expected_velocity
 
 
-if __name__ == '__main__':
-    unittest.main()
+@pytest.mark.parametrize(
+    ("velocity", "correction", "expected_exception"),
+    (
+            (3, -5, exceptions.NegativeAngularVelocityError),
+    ),
+)
+def test_velocity_negative(velocity, correction, expected_exception):
+    obj = MockAngularVelocityController(velocity=velocity, correction=correction)
+    with pytest.raises(expected_exception):
+        ChangeAngularVelocity(obj).execute()
