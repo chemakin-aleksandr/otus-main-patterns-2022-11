@@ -18,3 +18,14 @@ class StraightLinePositionController(ABC):
     @abstractmethod
     def position_correction(self) -> [int,int]:
         """Возвращает величину последнего перемещения"""
+
+    @property
+    @abstractmethod
+    def moveable(self) -> bool:
+        """Возвращает возможность передвинуть объект"""
+
+    @moveable.setter
+    @abstractmethod
+    def moveable(self, value: bool) -> None:
+        """Изменяет возможность передвинуть объект"""
+
