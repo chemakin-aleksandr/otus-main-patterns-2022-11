@@ -1,22 +1,22 @@
 from space_invaders.engine import exceptions
 from space_invaders.engine.interfaces import Command
-from space_invaders.engine.interfaces import StraightLinePositionController
+from space_invaders.engine.interfaces import MoveController
 import operator
 
 
-class ChangeStraightLinePosition(Command):
+class Move(Command):
     """Команда прямолинейного движения"""
 
-    def __init__(self, obj: StraightLinePositionController):
+    def __init__(self, obj: MoveController):
         self._obj = obj
 
     def execute(self) -> None:
-        if not self._obj.moveable:
-            raise exceptions.EObjectNotMoveableError
-        if None in [self._obj.current_position, self._obj.position_correction]:
-            raise exceptions.ENoneStraightLinePositionError
-        if None in self._obj.current_position + self._obj.position_correction:
-            raise exceptions.ENoneStraightLinePositionError
-        self._obj.current_position = \
-            tuple(map(operator.add, self._obj.current_position,
-                      self._obj.position_correction))
+        if None in [self._obj.position, self._obj.velocity]:
+            raise exceptions.ENoneMoveError
+
+        if None in self._obj.position + self._obj.velocity:
+            raise exceptions.ENoneMoveError
+
+        self._obj.position = \
+            tuple(map(operator.add, self._obj.position,
+                      self._obj.velocity))

@@ -1,6 +1,2 @@
-class ENoneStraightLinePositionError(Exception):
-    """Исклюение при получении не определено значение координат"""
-
-
-class EObjectNotMoveableError(Exception):
-    """Исклюение при попытке сдвинуть не перемещаемый объект"""
+class ENoneMoveError(Exception):
+    """Исключение при получении не определено значение координат"""
