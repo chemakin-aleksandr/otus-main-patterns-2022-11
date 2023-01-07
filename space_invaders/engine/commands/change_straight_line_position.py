@@ -18,4 +18,5 @@ class ChangeStraightLinePosition(Command):
         if None in self._obj.current_position + self._obj.position_correction:
             raise exceptions.ENoneStraightLinePositionError
         self._obj.current_position = \
-            tuple(map(operator.add, self._obj.current_position, self._obj.position_correction))
+            tuple(map(operator.add, self._obj.current_position,
+                      self._obj.position_correction))
