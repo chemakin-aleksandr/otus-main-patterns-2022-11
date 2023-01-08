@@ -17,4 +17,4 @@ class MoveController(ABC):
     @property
     @abstractmethod
     def velocity(self):
-        """Возвращает координаты после перемещения"""
+        """Возвращает мгновенную скорость"""
