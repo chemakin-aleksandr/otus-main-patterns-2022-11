@@ -11,10 +11,9 @@ class Move(Command):
         self._obj = obj
 
     def execute(self) -> None:
-        if None in [self._obj.position, self._obj.velocity]:
-            raise exceptions.ENoneMoveError
-
-        if None in self._obj.position + self._obj.velocity:
+        if None in [self._obj.position, self._obj.velocity]\
+                or None in self._obj.position \
+                or None in self._obj.velocity:
             raise exceptions.ENoneMoveError
 
         self._obj.position = \

@@ -1,5 +1,6 @@
 from space_invaders.engine.commands.change_straight_line_position \
-    import (Move,)
+    import (Move,
+            )
 
 __all__ = (
     "Move",
