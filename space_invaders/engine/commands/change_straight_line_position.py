@@ -12,10 +12,12 @@ class Move(Command):
 
     def execute(self) -> None:
         if self._obj.position is None \
-            or self._obj.velocity is None \
-                or any(map(lambda elem: elem is None, self._obj.position)) \
+                or any(map(lambda elem: elem is None, self._obj.position)):
+            raise exceptions.EGetPositionError
+
+        if self._obj.velocity is None \
                 or any(map(lambda elem: elem is None, self._obj.velocity)):
-            raise exceptions.ENoneMoveError
+            raise exceptions.EGetVelocityError
 
         self._obj.position = \
             tuple(map(operator.add, self._obj.position,

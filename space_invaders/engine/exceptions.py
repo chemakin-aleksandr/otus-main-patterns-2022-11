@@ -1,2 +1,6 @@
-class ENoneMoveError(Exception):
-    """Исключение при получении не определено значение координат"""
+class EGetPositionError(Exception):
+    """Не определено значение координат"""
+
+
+class EGetVelocityError(Exception):
+    """Не определено значение скорости"""

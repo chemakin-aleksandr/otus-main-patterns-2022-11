@@ -26,12 +26,12 @@ class MockMoveController(MoveController):
 @pytest.mark.parametrize(
     ("position", "velocity", "expected_exception"),
     (
-        ((3, 4), None, exceptions.ENoneMoveError),
-        (None, (3, 4), exceptions.ENoneMoveError),
-        ((1, 2), (1, None), exceptions.ENoneMoveError),
-        ((1, 2), (None, 2), exceptions.ENoneMoveError),
-        ((None, 4), (3, 4), exceptions.ENoneMoveError),
-        ((3, None), (3, 4), exceptions.ENoneMoveError),
+        ((3, 4), None, exceptions.EGetVelocityError),
+        ((1, 2), (1, None), exceptions.EGetVelocityError),
+        ((1, 2), (None, 2), exceptions.EGetVelocityError),
+        (None, (3, 4), exceptions.EGetPositionError),
+        ((None, 4), (3, 4), exceptions.EGetPositionError),
+        ((3, None), (3, 4), exceptions.EGetPositionError),
     ),
 )
 def test_pos_none(position, velocity, expected_exception):
