@@ -2,7 +2,6 @@ from space_invaders.engine.interfaces.command import Command
 
 
 class NoopCommand(Command):
-
     def execute(self) -> None:
         ...
 
