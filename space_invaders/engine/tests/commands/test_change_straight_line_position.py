@@ -35,9 +35,7 @@ class MockMoveController(MoveController):
     ],
 )
 def test_pos_none(position, velocity, expected_exception):
-    obj = MockMoveController(
-        position=position,
-        velocity=velocity)
+    obj = MockMoveController(position=position, velocity=velocity)
     with pytest.raises(expected_exception):
         Move(obj).execute()
 
@@ -53,8 +51,6 @@ def test_pos_none(position, velocity, expected_exception):
 )
 def test_change_straight_line_position(
         position, velocity, expected_position):
-    obj = MockMoveController(
-        position=position,
-        velocity=velocity)
+    obj = MockMoveController(position=position, velocity=velocity)
     Move(obj).execute()
     assert obj.position == expected_position
