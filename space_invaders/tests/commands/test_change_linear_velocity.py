@@ -2,9 +2,7 @@ import pytest
 
 from space_invaders.engine import exceptions
 from space_invaders.engine.commands.change_linear_velocity import ChangeLinearVelocity
-from space_invaders.engine.interfaces.linear_velocity_controller import (
-    LinearVelocityController,
-)
+from space_invaders.engine.interfaces.linear_velocity_controller import LinearVelocityController
 
 
 class MockLinearVelocityController(LinearVelocityController):
@@ -26,12 +24,12 @@ class MockLinearVelocityController(LinearVelocityController):
 
 
 @pytest.mark.parametrize(
-    ("velocity", "correction", "expected_velocity"),
-    (
+    ('velocity', 'correction', 'expected_velocity'),
+    [
         (250, 11, 261),
         (300, -100, 200),
         (111, 0, 111),
-    ),
+    ],
 )
 def test_change_linear_velocity(velocity, correction, expected_velocity):
     obj = MockLinearVelocityController(velocity=velocity, correction=correction)
@@ -40,11 +38,11 @@ def test_change_linear_velocity(velocity, correction, expected_velocity):
 
 
 @pytest.mark.parametrize(
-    ("velocity", "correction", "expected_exception"),
-    (
+    ('velocity', 'correction', 'expected_exception'),
+    [
         (20, -22, exceptions.NegativeLinearVelocityError),
         (0, -1, exceptions.NegativeLinearVelocityError),
-    ),
+    ],
 )
 def test_velocity_negative(velocity, correction, expected_exception):
     obj = MockLinearVelocityController(velocity=velocity, correction=correction)
