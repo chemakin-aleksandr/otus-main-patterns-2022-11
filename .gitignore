@@ -1,6 +1,9 @@
 **/.pytest_cache/**
 **/.mypy_cache/**
+**/*.pyc
+*.egg-info/
 venv/
+.venv/
 .idea/
 .vscode/
 *.pyc
