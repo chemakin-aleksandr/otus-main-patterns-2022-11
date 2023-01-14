@@ -49,8 +49,7 @@ def test_pos_none(position, velocity, expected_exception):
         ((0, 0), (7, 13), (7, 13)),
     ],
 )
-def test_change_straight_line_position(
-        position, velocity, expected_position):
+def test_change_straight_line_position(position, velocity, expected_position):
     obj = MockMoveController(position=position, velocity=velocity)
     Move(obj).execute()
     assert obj.position == expected_position
