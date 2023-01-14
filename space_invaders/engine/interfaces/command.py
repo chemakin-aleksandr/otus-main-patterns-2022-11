@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 
 class Command(ABC):
-    """Интерфейс команды."""
+    """Interface of command"""
 
     @abstractmethod
     def execute(self) -> None:

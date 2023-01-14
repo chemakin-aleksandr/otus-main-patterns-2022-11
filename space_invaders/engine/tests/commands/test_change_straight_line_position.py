@@ -1,12 +1,12 @@
 import pytest
+
 from space_invaders.engine import exceptions
-from space_invaders.engine.interfaces import MoveController
 from space_invaders.engine.commands import Move
+from space_invaders.engine.interfaces import MoveController
 
 
 class MockMoveController(MoveController):
-    def __init__(self, position: [
-                 int, int], velocity: [int, int]):
+    def __init__(self, position: [int, int], velocity: [int, int]):
         self._position = position
         self._velocity = velocity
 
@@ -24,15 +24,15 @@ class MockMoveController(MoveController):
 
 
 @pytest.mark.parametrize(
-    ("position", "velocity", "expected_exception"),
-    (
+    ('position', 'velocity', 'expected_exception'),
+    [
         ((3, 4), None, exceptions.EGetVelocityError),
         ((1, 2), (1, None), exceptions.EGetVelocityError),
         ((1, 2), (None, 2), exceptions.EGetVelocityError),
         (None, (3, 4), exceptions.EGetPositionError),
         ((None, 4), (3, 4), exceptions.EGetPositionError),
         ((3, None), (3, 4), exceptions.EGetPositionError),
-    ),
+    ],
 )
 def test_pos_none(position, velocity, expected_exception):
     obj = MockMoveController(
@@ -43,13 +43,13 @@ def test_pos_none(position, velocity, expected_exception):
 
 
 @pytest.mark.parametrize(
-    ("position", "velocity", "expected_position"),
-    (
+    ('position', 'velocity', 'expected_position'),
+    [
         ((12, 5), (-7, 3), (5, 8)),
         ((3, 5), (7, -7), (10, -2)),
         ((-3, -5), (7, -7), (4, -12)),
         ((0, 0), (7, 13), (7, 13)),
-    ),
+    ],
 )
 def test_change_straight_line_position(
         position, velocity, expected_position):

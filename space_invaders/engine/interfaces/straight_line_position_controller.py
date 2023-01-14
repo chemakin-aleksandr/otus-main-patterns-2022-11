@@ -2,19 +2,19 @@ from abc import ABC, abstractmethod
 
 
 class MoveController(ABC):
-    """Интерфейс для перемещаемого объекта."""
+    """Interface of movable object."""
 
     @property
     @abstractmethod
     def position(self):
-        """Возвращает текущие координаты"""
+        """Returning current location"""
 
     @position.setter
     @abstractmethod
     def position(self, value) -> None:
-        """Изменяет текущие координаты"""
+        """Changing current location"""
 
     @property
     @abstractmethod
     def velocity(self):
-        """Возвращает мгновенную скорость"""
+        """Returning moment velocity"""

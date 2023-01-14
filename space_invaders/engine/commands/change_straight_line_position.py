@@ -1,7 +1,7 @@
-from space_invaders.engine import exceptions
-from space_invaders.engine.interfaces import Command
-from space_invaders.engine.interfaces import MoveController
 import operator
+
+from space_invaders.engine import exceptions
+from space_invaders.engine.interfaces import Command, MoveController
 
 
 class Move(Command):
