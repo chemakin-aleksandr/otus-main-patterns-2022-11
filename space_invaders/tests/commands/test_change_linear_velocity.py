@@ -1,26 +1,9 @@
 import pytest
+from unittest.mock import Mock
 
 from space_invaders.engine import exceptions
 from space_invaders.engine.commands.change_linear_velocity import ChangeLinearVelocity
 from space_invaders.engine.interfaces.linear_velocity_controller import LinearVelocityController
-
-
-class MockLinearVelocityController(LinearVelocityController):
-    def __init__(self, velocity: int, correction: int):
-        self._velocity = velocity
-        self._velocity_correction = correction
-
-    @property
-    def linear_velocity(self) -> int:
-        return self._velocity
-
-    @linear_velocity.setter
-    def linear_velocity(self, value: int) -> None:
-        self._velocity = value
-
-    @property
-    def linear_velocity_correction(self) -> int:
-        return self._velocity_correction
 
 
 @pytest.mark.parametrize(
@@ -32,9 +15,11 @@ class MockLinearVelocityController(LinearVelocityController):
     ],
 )
 def test_change_linear_velocity(velocity, correction, expected_velocity):
-    obj = MockLinearVelocityController(velocity=velocity, correction=correction)
-    ChangeLinearVelocity(obj).execute()
-    assert obj.linear_velocity == expected_velocity
+    mock = Mock(LinearVelocityController)
+    mock.linear_velocity = velocity
+    mock.linear_velocity_correction = correction
+    ChangeLinearVelocity(mock).execute()
+    assert mock.linear_velocity == expected_velocity
 
 
 @pytest.mark.parametrize(
@@ -45,6 +30,8 @@ def test_change_linear_velocity(velocity, correction, expected_velocity):
     ],
 )
 def test_velocity_negative(velocity, correction, expected_exception):
-    obj = MockLinearVelocityController(velocity=velocity, correction=correction)
+    mock = Mock()
+    mock.linear_velocity = velocity
+    mock.linear_velocity_correction = correction
     with pytest.raises(expected_exception):
-        ChangeLinearVelocity(obj).execute()
+        ChangeLinearVelocity(mock).execute()
