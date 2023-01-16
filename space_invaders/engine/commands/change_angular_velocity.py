@@ -1,6 +1,5 @@
 from space_invaders.engine import exceptions
-from space_invaders.engine.interfaces import Command
-from space_invaders.engine.interfaces import AngularVelocityController
+from space_invaders.engine.interfaces import AngularVelocityController, Command
 
 
 class ChangeAngularVelocity(Command):

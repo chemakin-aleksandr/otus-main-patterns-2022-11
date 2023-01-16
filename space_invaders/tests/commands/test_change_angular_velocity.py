@@ -1,7 +1,8 @@
 import pytest
+
 from space_invaders.engine import exceptions
-from space_invaders.engine.interfaces import AngularVelocityController
 from space_invaders.engine.commands.change_angular_velocity import ChangeAngularVelocity
+from space_invaders.engine.interfaces import AngularVelocityController
 
 
 class MockAngularVelocityController(AngularVelocityController):
@@ -23,12 +24,8 @@ class MockAngularVelocityController(AngularVelocityController):
 
 
 @pytest.mark.parametrize(
-    ("velocity", "correction", "expected_velocity"),
-    (
-            (3, 5, 8),
-            (0, 2, 2),
-            (6, -2, 4)
-    ),
+    ('velocity', 'correction', 'expected_velocity'),
+    [(3, 5, 8), (0, 2, 2), (6, -2, 4)],
 )
 def test_change_linear_velocity(velocity, correction, expected_velocity):
     obj = MockAngularVelocityController(velocity=velocity, correction=correction)
@@ -37,10 +34,8 @@ def test_change_linear_velocity(velocity, correction, expected_velocity):
 
 
 @pytest.mark.parametrize(
-    ("velocity", "correction", "expected_exception"),
-    (
-            (3, -5, exceptions.NegativeAngularVelocityError),
-    ),
+    ('velocity', 'correction', 'expected_exception'),
+    [(3, -5, exceptions.NegativeAngularVelocityError)],
 )
 def test_velocity_negative(velocity, correction, expected_exception):
     obj = MockAngularVelocityController(velocity=velocity, correction=correction)
