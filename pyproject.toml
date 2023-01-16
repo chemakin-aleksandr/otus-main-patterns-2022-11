@@ -1,0 +1,58 @@
+[project]
+name = "otus-patterns-python-hw"
+version = "2023.01.01"
+requires-python = ">=3.10"
+
+dependencies = [
+]
+
+[project.optional-dependencies]
+dev = [
+    "ipython",
+    "pytest",
+    "black",
+    "flake8-absolute-import",
+    "flake8-bugbear",
+    "flake8-cognitive-complexity",
+    "flake8-commas",
+    "flake8-eradicate",
+    "flake8-fixme",
+    "flake8-isort>=4.0.0",
+    "flake8-multiline-containers",
+    "flake8-mutable",
+    "flake8-pep3101",
+    "flake8-print",
+    "flake8-printf-formatting",
+    "flake8-pytest",
+    "flake8-pytest-style",
+    "flake8-quotes",
+    "flake8-simplify",
+    "flake8-todo",
+    "flake8-variables-names",
+    "flake8-walrus",
+    "flake8-use-fstring",
+    "flake8-pyproject",
+]
+
+[tool.flake8]
+max-line-length = 119
+ignore = [
+    "E800", # Found commented out code
+]
+exclude = [
+    "venv",
+    ".venv",
+    ".git",
+    "__pycache__",
+]
+
+[tool.isort]
+profile = "black"
+line_length = 119
+multi_line_output = 3
+known_standard_library = ["typing"]
+skip_glob = [".venv", "venv"]
+
+[tool.black]
+line-length = 119
+skip-string-normalization = true
