@@ -4,8 +4,6 @@
 #
 #    pip-compile --extra=dev --output-file=dev-requirements.txt pyproject.toml
 #
-appnope==0.1.3
-    # via ipython
 astor==0.8.1
     # via flake8-simplify
 asttokens==2.2.1
