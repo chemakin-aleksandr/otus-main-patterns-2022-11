@@ -1,9 +1,11 @@
 import pytest
 from unittest.mock import Mock
 
-from space_invaders.engine import exceptions
-from space_invaders.engine.commands.change_linear_velocity import ChangeLinearVelocity
-from space_invaders.engine.interfaces.linear_velocity_controller import LinearVelocityController
+from space_invaders.engine.errors import exceptions
+from space_invaders.engine.commands.change_linear_velocity import \
+    ChangeLinearVelocity
+from space_invaders.engine.interfaces.linear_velocity_controller import \
+    LinearVelocityController
 
 
 @pytest.mark.parametrize(

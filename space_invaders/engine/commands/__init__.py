@@ -5,5 +5,3 @@ __all__ = [
     'Rotate',
     'BurnFuel'
 ]
-
-

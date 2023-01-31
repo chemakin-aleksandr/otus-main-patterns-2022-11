@@ -8,3 +8,7 @@ class NegativeFuelLevelError(Exception):
 
 class NegativeLinearVelocityError(Exception):
     """Исключение при получении отрицательного значения линейной скорости"""
+
+
+class CommandException(Exception):
+    """Исключение при нехватке топлива"""

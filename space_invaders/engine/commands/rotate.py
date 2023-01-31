@@ -11,6 +11,8 @@ class Rotate(Command):
 
     def execute(self):
         """Выполнить вращение вокруг своей оси"""
-        self._rotable.direction = self._rotable.direction + \
-                                  self._rotable.angular_velocity % \
-                                  self._rotable.directions_number
+        self._rotable.direction = (
+                self._rotable.direction +
+                self._rotable.angular_velocity %
+                self._rotable.directions_number
+        )

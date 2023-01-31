@@ -1,4 +1,4 @@
-from space_invaders.engine import exceptions
+from space_invaders.engine.errors import exceptions
 from space_invaders.engine.interfaces import Command, FuelBurner
 
 
@@ -16,7 +16,7 @@ class BurnFuel(Command):
         """Выполнить действие.
 
         Raises:
-            NegativeFuelLevelError: Действие приведет к отрицательному уровню топлива.
+            NegativeFuelLevelError.
         """
         new_fuel_level = self.obj.fuel_level - self.obj.fuel_consumption
         if new_fuel_level < 0:

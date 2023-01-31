@@ -5,7 +5,9 @@ from space_invaders.engine.interfaces.rotate import Rotable
 
 class MockObjRotate(Rotable):
 
-    def __init__(self, direction: int, directions_number: int, angular_velocity: int):
+    def __init__(
+            self, direction: int, directions_number: int, angular_velocity: int
+    ):
         self._direction = direction
         self._directions_number = directions_number
         self._angular_velocity = angular_velocity
@@ -34,7 +36,9 @@ class MockObjRotate(Rotable):
         (3, 5, 3, 6)
     ]
 )
-def test_success(direction, directions_number, angular_velocity, result_direction):
+def test_success(
+        direction, directions_number, angular_velocity, result_direction
+):
     rotable_obj = MockObjRotate(
         direction=direction,
         directions_number=directions_number,

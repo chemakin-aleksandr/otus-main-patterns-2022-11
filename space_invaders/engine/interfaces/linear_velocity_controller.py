@@ -2,7 +2,9 @@ from abc import ABC, abstractmethod
 
 
 class LinearVelocityController(ABC):
-    """Интерфейс к объекту, обладающему возможностью изменения линейной скорости."""
+    """Интерфейс к объекту,
+    обладающему возможностью изменения линейной скорости.
+    """
 
     @property
     @abstractmethod
