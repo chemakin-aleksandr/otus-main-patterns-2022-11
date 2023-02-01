@@ -4,8 +4,8 @@ from space_invaders.engine.interfaces.command import Command
 class Repeater(Command):
     """Команда, которая повторяет команду"""
 
-    def __init__(self, cmd: Command):
-        self._cmd = cmd
+    def __init__(self, command: Command):
+        self._command = command
 
     def execute(self) -> None:
-        self._cmd.execute()
+        self._command.execute()
