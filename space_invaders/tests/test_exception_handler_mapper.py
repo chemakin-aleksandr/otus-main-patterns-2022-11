@@ -6,20 +6,6 @@ from space_invaders.engine.interfaces import Command
 
 
 @pytest.fixture
-def mapper():
-    return ExceptionHandlerMapper()
-
-
-@pytest.fixture
-def dummy_command_class():
-    class dummy_command(Command):
-        def execute(self) -> None:
-            pass
-
-    return dummy_command
-
-
-@pytest.fixture
 def command_1():
     return Mock(Command)
 
