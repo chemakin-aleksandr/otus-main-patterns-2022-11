@@ -29,11 +29,13 @@ class ExceptionHandlerMapper(ExceptionHandler):
         pass
 
     def handle(self, command: Command, exception: Exception) -> None:
-        handler = self._map.get(
-            (type(command), exception),  # сначала искать полное совпадение по команде/исключению
-            self._map.get(
-                (type(command), None),  # затем искать совпадение по команде
-                self._map.get((type(None), exception), self._default_handler),  # затем искать по исключению
-            ),
-        )  # type:Command
+        # сначала искать полное совпадение по команде/исключению
+        handler = self._map.get((type(command), exception))  # type:Command
+        # если не найден, искать совпадение по команде
+        handler = self._map.get((type(command), None)) if handler is None else handler
+        # если не найден, искать совпадение по исключению
+        handler = self._map.get((type(None), exception)) if handler is None else handler
+        # вернуть handler по умолчанию, если ни одно соответствие не найдено
+        handler = self._default_handler if handler is None else handler
+
         handler.execute()
