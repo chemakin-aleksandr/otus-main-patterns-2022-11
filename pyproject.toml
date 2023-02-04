@@ -38,6 +38,7 @@ dev = [
 max-line-length = 119
 ignore = [
     "E800", # Found commented out code
+    "PT001", # Use @pytest.fixture() over @pytest.fixture
 ]
 exclude = [
     "venv",
