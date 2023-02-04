@@ -1,3 +1,5 @@
+from typing import Type
+
 from space_invaders.engine.interfaces import Command, ExceptionHandler
 
 
@@ -15,26 +17,25 @@ class ExceptionHandlerMapper(ExceptionHandler):
         self,
         *,
         handler: Command,
-        command: Command | None = None,
-        exception: Exception | None = None,
+        command_cls: Type[Command] | None = None,
+        exception_cls: Type[Exception] | None = None,
     ) -> None:
         """Регистрация обработчика исключения для пары команда / исключение
 
         Args:
             handler: Команда, вызываемая для обработки исключения
-            command: Команда, при выполнении которой возникло исключение 'exception'
-            exception: Исключение, возникшее при выполнении команды 'command'
+            command_cls: Класс команды, при выполнении которой возникло исключение типа 'exception_cls'
+            exception_сды: Класс исключения, возникшего при выполнении команды типа 'command_cls'
         """
-        self._map[(type(command), exception)] = handler
-        pass
+        self._map[(command_cls, exception_cls)] = handler
 
     def handle(self, command: Command, exception: Exception) -> None:
         # сначала искать полное совпадение по команде/исключению
-        handler = self._map.get((type(command), exception))  # type:Command
+        handler = self._map.get((type(command), type(exception)))  # type:Command
         # если не найден, искать совпадение по команде
         handler = self._map.get((type(command), None)) if handler is None else handler
         # если не найден, искать совпадение по исключению
-        handler = self._map.get((type(None), exception)) if handler is None else handler
+        handler = self._map.get((None, type(exception))) if handler is None else handler
         # вернуть handler по умолчанию, если ни одно соответствие не найдено
         handler = self._default_handler if handler is None else handler
 
