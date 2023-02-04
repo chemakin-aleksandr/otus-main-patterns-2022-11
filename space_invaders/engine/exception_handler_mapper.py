@@ -21,9 +21,9 @@ class ExceptionHandlerMapper(ExceptionHandler):
         """Регистрация обработчика исключения для пары команда / исключение
 
         Args:
-            handler (Command): Команда, вызываемая для обработки исключения
-            command (Command | None): Команда, при выполнении которой возникло исключение 'exception'
-            exception (Exception): Исключение, возникшее при выполнении команды 'command'
+            handler: Команда, вызываемая для обработки исключения
+            command: Команда, при выполнении которой возникло исключение 'exception'
+            exception: Исключение, возникшее при выполнении команды 'command'
         """
         self._map[(type(command), exception)] = handler
         pass
