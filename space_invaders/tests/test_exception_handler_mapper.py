@@ -1,4 +1,5 @@
 import pytest
+from types import SimpleNamespace
 from unittest.mock import Mock
 
 from space_invaders.engine import ExceptionHandlerMapper
@@ -103,9 +104,11 @@ def test_any_exception_of_one_command(command_1, exception_1, exception_2):
     assert handler_1.execute.call_count == 2
 
 
-def test_command_and_exception_prioritization(command_1, command_2, exception_1, exception_2):
+@pytest.fixture
+def mps(command_1, command_2, exception_1, exception_2):
+    """mapper priority structure for tests"""
 
-    mapper = ExceptionHandlerMapper()  # mapper instance on test
+    mapper = ExceptionHandlerMapper()
 
     handler_1 = Mock(Command)
     handler_2 = Mock(Command)
@@ -115,28 +118,40 @@ def test_command_and_exception_prioritization(command_1, command_2, exception_1,
     mapper.register_handler(handler=handler_2, exception=exception_2)  # низкий приоритет
     mapper.register_handler(handler=handler_3, command=command_1, exception=exception_2)  # высокий приоритет
 
-    mapper.handle(command_1, exception_1)  # должен вызвать handler_1
+    return SimpleNamespace(
+        handler_1=handler_1,
+        handler_2=handler_2,
+        handler_3=handler_3,
+        mapper=mapper,
+        command_1=command_1,
+        command_2=command_2,
+        exception_1=exception_1,
+        exception_2=exception_2,
+    )
 
-    handler_1.execute.assert_called_once()
-    handler_2.execute.assert_not_called()
-    handler_3.execute.assert_not_called()
 
-    handler_1.reset_mock()
-    handler_2.reset_mock()
-    handler_3.reset_mock()
+def test_command_and_exception_prioritization_1(mps):
 
-    mapper.handle(command_2, exception_2)  # должен вызвать handler_2
+    mps.mapper.handle(mps.command_1, mps.exception_1)  # должен вызвать handler_1
 
-    handler_1.execute.assert_not_called()
-    handler_2.execute.assert_called_once()
-    handler_3.execute.assert_not_called()
+    mps.handler_1.execute.assert_called_once()
+    mps.handler_2.execute.assert_not_called()
+    mps.handler_3.execute.assert_not_called()
 
-    handler_1.reset_mock()
-    handler_2.reset_mock()
-    handler_3.reset_mock()
 
-    mapper.handle(command_1, exception_2)  # должен вызвать handler_3
+def test_command_and_exception_prioritization_2(mps):
 
-    handler_1.execute.assert_not_called()
-    handler_2.execute.assert_not_called()
-    handler_3.execute.assert_called_once()
+    mps.mapper.handle(mps.command_2, mps.exception_2)  # должен вызвать handler_2
+
+    mps.handler_1.execute.assert_not_called()
+    mps.handler_2.execute.assert_called_once()
+    mps.handler_3.execute.assert_not_called()
+
+
+def test_command_and_exception_prioritization_3(mps):
+
+    mps.mapper.handle(mps.command_1, mps.exception_2)  # должен вызвать handler_3
+
+    mps.handler_1.execute.assert_not_called()
+    mps.handler_2.execute.assert_not_called()
+    mps.handler_3.execute.assert_called_once()
